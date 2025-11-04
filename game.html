@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Elmo's Interactive Game - Fun and educational game demonstrating JavaScript skills">
+    <meta name="keywords" content="Elmo, Game, Interactive, JavaScript, Educational, Fun">
+    <meta name="author" content="Elmo">
+    <title>Interactive Game | Elmo's Fun Learning Adventure</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <style>
+        :root {
+            --primary-red: #e41e31;
+            --secondary-orange: #ffa502;
+            --text-dark: #2d3436;
+            --text-light: #ffffff;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(-45deg, #ff6b6b, #e41e31, #ffa502, #ff7f50);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .background-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Game Container */
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .game-title {
+            color: var(--primary-red);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        /* Game Board */
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 300px;
+            margin: 2rem auto;
+            background: var(--primary-red);
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .game-cell {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-cell:hover {
+            background: var(--secondary-orange);
+            transform: scale(1.05);
+        }
+
+        .game-cell:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .game-cell.winning {
+            background: var(--secondary-orange);
+            animation: bounce 1s infinite;
+        }
+
+        /* Dog Bone X Symbol */
+        .game-cell.dog-bone {
+            position: relative;
+            background: #F5F5DC;
+            border: 3px solid #D2691E;
+        }
+
+        .game-cell.dog-bone::before {
+            content: '🦴';
+            font-size: 3rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Bulldog Face O Symbol */
+        .game-cell.bulldog {
+            position: relative;
+            background: #FFA500;
+            border-radius: 50%;
+        }
+
+        .game-cell.bulldog::before {
+            content: '🐶';
+            font-size: 2.5rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Confetti and Bones Animation */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        .confetti-piece:nth-child(odd) {
+            background: #4ecdc4;
+        }
+
+        .confetti-piece:nth-child(3n) {
+            background: #45b7d1;
+        }
+
+        .confetti-piece:nth-child(4n) {
+            background: #f9ca24;
+        }
+
+        .confetti-piece:nth-child(5n) {
+            background: #f0932b;
+        }
+
+        .bone-piece {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: confetti-fall 4s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Game Controls */
+        .game-controls {
+            margin: 2rem 0;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .info-item h3 {
+            color: var(--primary-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .game-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary-red), var(--secondary-orange));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Game Messages */
+        .game-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 10px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .message-win {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            animation: bounce 0.5s ease;
+        }
+
+        .message-draw {
+            background: linear-gradient(45deg, #FF9800, #F57C00);
+            color: white;
+        }
+
+        .message-turn {
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-dark);
+        }
+
+        /* Score Board */
+        .score-board {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .score-board h3 {
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .score-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid var(--primary-red);
+        }
+
+        .score-item h4 {
+            color: var(--primary-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .game-board {
+                max-width: 250px;
+            }
+            
+            .game-cell {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .game-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .game-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Mobile Menu Styles */
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-red);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1001;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus {
+            outline: 2px solid var(--primary-red);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Elmo's World</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="hobbies.html">Hobbies</a></li>
+                <li class="nav-item"><a href="discover.html">Discover</a></li>
+                <li class="nav-item"><a href="resume.html">Resume</a></li>
+                <li class="nav-item"><a href="career.html">Career</a></li>
+                <li class="nav-item"><a href="game.html">Game</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Background Shapes -->
+    <div class="background-shapes">
+        <div class="shape" style="top: 20%; left: 10%; width: 100px; height: 100px; animation-delay: 0s;"></div>
+        <div class="shape" style="top: 60%; left: 80%; width: 150px; height: 150px; animation-delay: 2s;"></div>
+        <div class="shape" style="top: 80%; left: 30%; width: 80px; height: 80px; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main" class="main-content">
+        <div class="container">
+            <h1 class="page-title">Elmo's Tic-Tac-Toe Game</h1>
+            <p class="page-subtitle">Play a fun game of Tic-Tac-Toe with Elmo!</p>
+
+            <div class="game-container">
+                <h2 class="game-title">🐕 Elmo's Dog Bone vs Bulldog Game</h2>
+                <p class="game-description">
+                    Welcome to Elmo's interactive Dog Bone vs Bulldog game! You play as the Dog Bones (X) and the computer 
+                    plays as the Bulldogs (O). This fun game helps children learn about strategy, turn-taking, and 
+                    problem-solving while having a great time with Elmo's furry friends!
+                </p>
+
+                <!-- Game Info -->
+                <div class="game-info">
+                    <div class="info-item">
+                        <h3>Current Player</h3>
+                        <p id="current-player">X</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Game Status</h3>
+                        <p id="game-status">Playing</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Moves Made</h3>
+                        <p id="move-count">0</p>
+                    </div>
+                </div>
+
+                <!-- Game Message -->
+                <div class="game-message message-turn" id="game-message">
+                    It's X's turn! Click on any empty cell to make your move.
+                </div>
+
+                <!-- Game Board -->
+                <div class="game-board" id="game-board">
+                    <button class="game-cell" data-index="0"></button>
+                    <button class="game-cell" data-index="1"></button>
+                    <button class="game-cell" data-index="2"></button>
+                    <button class="game-cell" data-index="3"></button>
+                    <button class="game-cell" data-index="4"></button>
+                    <button class="game-cell" data-index="5"></button>
+                    <button class="game-cell" data-index="6"></button>
+                    <button class="game-cell" data-index="7"></button>
+                    <button class="game-cell" data-index="8"></button>
+                </div>
+
+                <!-- Game Controls -->
+                <div class="game-controls">
+                    <div class="game-buttons">
+                        <button class="btn" id="new-game-btn">New Game</button>
+                        <button class="btn" id="reset-score-btn">Reset Score</button>
+                        <button class="btn" id="help-btn">How to Play</button>
+                    </div>
+                </div>
+
+                <!-- Score Board -->
+                <div class="score-board">
+                    <h3>🏆 Score Board</h3>
+                    <div class="score-grid">
+                        <div class="score-item">
+                            <h4>🐕 Dog Bones</h4>
+                            <div class="score-value" id="x-wins">0</div>
+                        </div>
+                        <div class="score-item">
+                            <h4>Draws</h4>
+                            <div class="score-value" id="draws">0</div>
+                        </div>
+                        <div class="score-item">
+                            <h4>🐶 Bulldogs</h4>
+                            <div class="score-value" id="o-wins">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Game state
+        let currentPlayer = 'X'; // Human plays X (Dog Bones)
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+        let moveCount = 0;
+        let scores = { x: 0, o: 0, draws: 0 };
+        let humanWins = 0;
+        let totalGames = 0;
+
+        // DOM elements
+        const cells = document.querySelectorAll('.game-cell');
+        const currentPlayerDisplay = document.getElementById('current-player');
+        const gameStatusDisplay = document.getElementById('game-status');
+        const moveCountDisplay = document.getElementById('move-count');
+        const gameMessage = document.getElementById('game-message');
+        const newGameBtn = document.getElementById('new-game-btn');
+        const resetScoreBtn = document.getElementById('reset-score-btn');
+        const helpBtn = document.getElementById('help-btn');
+        const xWinsDisplay = document.getElementById('x-wins');
+        const drawsDisplay = document.getElementById('draws');
+        const oWinsDisplay = document.getElementById('o-wins');
+
+        // Winning combinations
+        const winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6] // Diagonals
+        ];
+
+        // Initialize game
+        function initGame() {
+            currentPlayer = 'X';
+            gameBoard = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            moveCount = 0;
+            updateDisplay();
+            clearBoard();
+        }
+
+        // Update display elements
+        function updateDisplay() {
+            currentPlayerDisplay.textContent = currentPlayer === 'X' ? '🐕 Dog Bones' : '🐶 Bulldogs';
+            gameStatusDisplay.textContent = gameActive ? 'Playing' : 'Game Over';
+            moveCountDisplay.textContent = moveCount;
+        }
+
+        // Clear the game board
+        function clearBoard() {
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.disabled = false;
+                cell.classList.remove('winning', 'dog-bone', 'bulldog');
+            });
+        }
+
+        // Handle cell click (Human player only)
+        function handleCellClick(event) {
+            const cell = event.target;
+            const index = parseInt(cell.dataset.index);
+
+            if (gameBoard[index] !== '' || !gameActive || currentPlayer !== 'X') {
+                return;
+            }
+
+            // Human makes move
+            makeMove(index, 'X', cell);
+            
+            if (gameActive) {
+                // Check for win or draw after human move
+                if (checkWin()) {
+                    gameActive = false;
+                    highlightWinningCells();
+                    updateScore();
+                    humanWins++;
+                    totalGames++;
+                    showMessage(`🎉 Dog Bones win! Great job!`, 'message-win');
+                    // Trigger confetti and bones animation
+                    createConfettiAnimation();
+                } else if (moveCount === 9) {
+                    gameActive = false;
+                    scores.draws++;
+                    totalGames++;
+                    updateScore();
+                    showMessage("🤝 It's a draw! Good game!", 'message-draw');
+                } else {
+                    // Computer's turn
+                    setTimeout(() => {
+                        if (gameActive) {
+                            computerMove();
+                        }
+                    }, 1000);
+                }
+            }
+
+            updateDisplay();
+        }
+
+        // Make a move
+        function makeMove(index, player, cell) {
+            gameBoard[index] = player;
+            cell.disabled = true;
+            moveCount++;
+
+            if (player === 'X') {
+                cell.classList.add('dog-bone');
+            } else {
+                cell.classList.add('bulldog');
+            }
+        }
+
+        // Computer move with bias towards human winning
+        function computerMove() {
+            if (!gameActive) return;
+
+            // Check if computer can win
+            let move = findWinningMove('O');
+            if (move !== -1) {
+                // Only let computer win if human has won 2/3 of recent games
+                if (totalGames < 3 || (humanWins / totalGames) >= 0.67) {
+                    move = findRandomMove();
+                }
+            } else {
+                // Check if computer should block human
+                move = findWinningMove('X');
+                if (move !== -1) {
+                    // Block human only 50% of the time to help human win more
+                    if (Math.random() < 0.5) {
+                        move = findRandomMove();
+                    }
+                } else {
+                    move = findRandomMove();
+                }
+            }
+
+            if (move !== -1) {
+                const cell = cells[move];
+                makeMove(move, 'O', cell);
+                
+                // Check for win or draw after computer move
+                if (checkWin()) {
+                    gameActive = false;
+                    highlightWinningCells();
+                    updateScore();
+                    totalGames++;
+                    showMessage(`🐶 Bulldogs win! Try again!`, 'message-win');
+                } else if (moveCount === 9) {
+                    gameActive = false;
+                    scores.draws++;
+                    totalGames++;
+                    updateScore();
+                    showMessage("🤝 It's a draw! Good game!", 'message-draw');
+                } else {
+                    showMessage(`It's your turn! Click a cell to place a Dog Bone!`, 'message-turn');
+                }
+            }
+
+            updateDisplay();
+        }
+
+        // Find winning move for a player
+        function findWinningMove(player) {
+            for (let combination of winningCombinations) {
+                const [a, b, c] = combination;
+                const values = [gameBoard[a], gameBoard[b], gameBoard[c]];
+                const emptyCount = values.filter(val => val === '').length;
+                const playerCount = values.filter(val => val === player).length;
+                
+                if (emptyCount === 1 && playerCount === 2) {
+                    return combination.find(index => gameBoard[index] === '');
+                }
+            }
+            return -1;
+        }
+
+        // Find random available move
+        function findRandomMove() {
+            const availableMoves = [];
+            for (let i = 0; i < 9; i++) {
+                if (gameBoard[i] === '') {
+                    availableMoves.push(i);
+                }
+            }
+            return availableMoves.length > 0 ? 
+                availableMoves[Math.floor(Math.random() * availableMoves.length)] : -1;
+        }
+
+        // Check for win
+        function checkWin() {
+            return winningCombinations.some(combination => {
+                const [a, b, c] = combination;
+                return gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
+            });
+        }
+
+        // Highlight winning cells
+        function highlightWinningCells() {
+            winningCombinations.forEach(combination => {
+                const [a, b, c] = combination;
+                if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+                    cells[a].classList.add('winning');
+                    cells[b].classList.add('winning');
+                    cells[c].classList.add('winning');
+                }
+            });
+        }
+
+        // Update score
+        function updateScore() {
+            if (currentPlayer === 'X') {
+                scores.x++;
+            } else {
+                scores.o++;
+            }
+            xWinsDisplay.textContent = scores.x;
+            oWinsDisplay.textContent = scores.o;
+            drawsDisplay.textContent = scores.draws;
+        }
+
+        // Show message
+        function showMessage(message, className) {
+            gameMessage.textContent = message;
+            gameMessage.className = `game-message ${className}`;
+        }
+
+        // Create confetti and bones animation
+        function createConfettiAnimation() {
+            const confettiContainer = document.createElement('div');
+            confettiContainer.className = 'confetti-container';
+            document.body.appendChild(confettiContainer);
+
+            // Create confetti pieces
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confettiContainer.appendChild(confetti);
+            }
+
+            // Create bone pieces
+            for (let i = 0; i < 20; i++) {
+                const bone = document.createElement('div');
+                bone.className = 'bone-piece';
+                bone.textContent = '🦴';
+                bone.style.left = Math.random() * 100 + '%';
+                bone.style.animationDelay = Math.random() * 2 + 's';
+                confettiContainer.appendChild(bone);
+            }
+
+            // Remove confetti container after animation
+            setTimeout(() => {
+                if (confettiContainer.parentNode) {
+                    confettiContainer.parentNode.removeChild(confettiContainer);
+                }
+            }, 5000);
+        }
+
+        // New game
+        function newGame() {
+            initGame();
+            showMessage("New game started! Click a cell to place your Dog Bone!", 'message-turn');
+        }
+
+        // Reset score
+        function resetScore() {
+            scores = { x: 0, o: 0, draws: 0 };
+            humanWins = 0;
+            totalGames = 0;
+            xWinsDisplay.textContent = '0';
+            oWinsDisplay.textContent = '0';
+            drawsDisplay.textContent = '0';
+            newGame();
+        }
+
+        // Show help
+        function showHelp() {
+            alert(`How to Play Dog Bone vs Bulldog:
+
+1. The game is played on a 3x3 grid
+2. You play as Dog Bones (🐕) and the computer plays as Bulldogs (🐶)
+3. Click any empty cell to place your Dog Bone
+4. The first player to get 3 in a row (horizontally, vertically, or diagonally) wins
+5. If all 9 cells are filled and no one has 3 in a row, it's a draw
+6. You always go first!
+
+Have fun playing with Elmo's furry friends! 🐕🐶`);
+        }
+
+        // Event listeners
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        newGameBtn.addEventListener('click', newGame);
+        resetScoreBtn.addEventListener('click', resetScore);
+        helpBtn.addEventListener('click', showHelp);
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize the game
+        initGame();
+    </script>
+</body>
+</html>

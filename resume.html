@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Elmo's Professional Resume - Education, Experience, Skills, and Achievements">
+    <meta name="keywords" content="Elmo, Resume, Professional, Education, Experience, Skills">
+    <meta name="author" content="Elmo">
+    <title>Elmo's Resume | Professional Experience & Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <style>
+        :root {
+            --primary-red: #e41e31;
+            --secondary-orange: #ffa502;
+            --text-dark: #2d3436;
+            --text-light: #ffffff;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(-45deg, #ff6b6b, #e41e31, #ffa502, #ff7f50);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .background-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Resume Content */
+        .resume-container {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            z-index: 2;
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .resume-name {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .contact-item i {
+            color: var(--primary-red);
+        }
+
+        .download-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, var(--primary-red), var(--secondary-orange));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .resume-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            color: var(--primary-red);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 0.5rem;
+        }
+
+        .experience-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-red);
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .company {
+            font-size: 1.1rem;
+            color: var(--primary-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .dates {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .job-description {
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .education-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            border-left: 5px solid var(--secondary-orange);
+        }
+
+        .degree {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .school {
+            font-size: 1.1rem;
+            color: var(--primary-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .skill-category h4 {
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        .achievements-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .achievements-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-red);
+        }
+
+        .achievements-list li i {
+            color: var(--primary-red);
+            margin-right: 0.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .resume-name {
+                font-size: 2rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Menu Styles */
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-red);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1001;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus {
+            outline: 2px solid var(--primary-red);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Elmo's World</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="hobbies.html">Hobbies</a></li>
+                <li class="nav-item"><a href="discover.html">Discover</a></li>
+                <li class="nav-item"><a href="resume.html">Resume</a></li>
+                <li class="nav-item"><a href="career.html">Career</a></li>
+                <li class="nav-item"><a href="game.html">Game</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Background Shapes -->
+    <div class="background-shapes">
+        <div class="shape" style="top: 20%; left: 10%; width: 100px; height: 100px; animation-delay: 0s;"></div>
+        <div class="shape" style="top: 60%; left: 80%; width: 150px; height: 150px; animation-delay: 2s;"></div>
+        <div class="shape" style="top: 80%; left: 30%; width: 80px; height: 80px; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main" class="main-content">
+        <div class="container">
+            <h1 class="page-title">Elmo's Professional Resume</h1>
+            <p class="page-subtitle">Education, Experience, Skills, and Achievements</p>
+
+            <div class="resume-container">
+                <!-- Resume Header -->
+                <div class="resume-header">
+                    <h2 class="resume-name">Elmo</h2>
+                    <p class="resume-title">Early Childhood Education Specialist & Television Personality</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>elmo@sesamestreet.org</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(212) 595-3456</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Sesame Street, New York, NY</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Section -->
+                <div class="download-section">
+                    <a href="media/images/elmo resume.docx" class="download-btn" download>
+                        <i class="fas fa-download"></i> Download PDF Resume
+                    </a>
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="resume-section">
+                    <h3 class="section-title">Professional Summary</h3>
+                    <p>Passionate early childhood education specialist with over 40 years of experience in children's television programming. Expert in creating engaging educational content that helps young learners develop essential skills while having fun. Proven track record of reaching millions of children worldwide through innovative teaching methods and emotional intelligence development.</p>
+                </div>
+
+                <!-- Experience -->
+                <div class="resume-section">
+                    <h3 class="section-title">Professional Experience</h3>
+                    
+                    <div class="experience-item">
+                        <div class="job-title">Main Character & Educational Consultant</div>
+                        <div class="company">Sesame Street, Children's Television Workshop</div>
+                        <div class="dates">1980 - Present</div>
+                        <div class="job-description">
+                            <ul>
+                                <li>Starring role as one of the most beloved characters in children's television history</li>
+                                <li>Developed and implemented educational content for millions of young learners worldwide</li>
+                                <li>Collaborated with child development experts to ensure age-appropriate programming</li>
+                                <li>Created innovative teaching methods that combine entertainment with education</li>
+                                <li>Mentored new cast members and contributed to show development</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="job-title">Host - Elmo's World</div>
+                        <div class="company">Sesame Street Productions</div>
+                        <div class="dates">1998 - Present</div>
+                        <div class="job-description">
+                            <ul>
+                                <li>Created and hosted popular educational segment focusing on specific learning topics</li>
+                                <li>Developed content covering music, food, transportation, and other educational themes</li>
+                                <li>Worked with production team to create engaging visual and interactive elements</li>
+                                <li>Maintained consistent character development and educational standards</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="job-title">Digital Media Specialist</div>
+                        <div class="company">Sesame Workshop Digital</div>
+                        <div class="dates">2010 - Present</div>
+                        <div class="job-description">
+                            <ul>
+                                <li>Adapted educational content for digital platforms including apps and websites</li>
+                                <li>Developed interactive learning experiences for mobile and web platforms</li>
+                                <li>Collaborated with technology teams to create engaging digital content</li>
+                                <li>Ensured educational effectiveness across multiple digital formats</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="resume-section">
+                    <h3 class="section-title">Education</h3>
+                    
+                    <div class="education-item">
+                        <div class="degree">Bachelor of Arts in Early Childhood Education</div>
+                        <div class="school">University of Minnesota Duluth</div>
+                        <div class="dates">Expected Graduation: 2025</div>
+                        <div class="job-description">
+                            <p>Currently pursuing degree in Early Childhood Education with focus on innovative teaching methods and child development. Coursework includes child psychology, educational technology, and curriculum development.</p>
+                        </div>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="degree">Certification in Children's Television Production</div>
+                        <div class="school">Sesame Workshop Training Institute</div>
+                        <div class="dates">1980</div>
+                        <div class="job-description">
+                            <p>Specialized training in children's television production, educational content development, and character performance for young audiences.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="resume-section">
+                    <h3 class="section-title">Skills & Competencies</h3>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Educational Skills</h4>
+                            <ul class="skill-list">
+                                <li>Early Childhood Development</li>
+                                <li>Curriculum Design</li>
+                                <li>Educational Technology</li>
+                                <li>Learning Assessment</li>
+                                <li>Child Psychology</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Communication</h4>
+                            <ul class="skill-list">
+                                <li>Public Speaking</li>
+                                <li>Television Performance</li>
+                                <li>Cross-cultural Communication</li>
+                                <li>Team Collaboration</li>
+                                <li>Mentoring</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Technical Skills</h4>
+                            <ul class="skill-list">
+                                <li>Digital Media Production</li>
+                                <li>Video Editing</li>
+                                <li>Audio Production</li>
+                                <li>Web Development</li>
+                                <li>Mobile App Development</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Languages</h4>
+                            <ul class="skill-list">
+                                <li>English (Native)</li>
+                                <li>Spanish (Conversational)</li>
+                                <li>American Sign Language</li>
+                                <li>Basic French</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="resume-section">
+                    <h3 class="section-title">Awards & Achievements</h3>
+                    <ul class="achievements-list">
+                        <li><i class="fas fa-trophy"></i>Monster of the Year Award 2025 - Sesame Street Recognition</li>
+                        <li><i class="fas fa-star"></i>Emmy Award for Outstanding Children's Programming (Multiple Years)</li>
+                        <li><i class="fas fa-heart"></i>Children's Choice Award for Favorite TV Character (15+ Years)</li>
+                        <li><i class="fas fa-graduation-cap"></i>Honorary Doctorate in Early Childhood Education - University of Learning</li>
+                        <li><i class="fas fa-globe"></i>International Recognition for Educational Impact - UNESCO</li>
+                        <li><i class="fas fa-microphone"></i>Grammy Award for Best Children's Album</li>
+                        <li><i class="fas fa-users"></i>Lifetime Achievement Award for Educational Television</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

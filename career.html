@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Elmo, Career, Job Opportunities, Companies, Professional Goals">
+    <meta name="author" content="Elmo">
+    <title>Career Interests | Elmo's Professional Goals</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <style>
+        :root {
+            --primary-red: #e41e31;
+            --secondary-orange: #ffa502;
+            --text-dark: #2d3436;
+            --text-light: #ffffff;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(-45deg, #ff6b6b, #e41e31, #ffa502, #ff7f50);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .background-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Company Cards */
+        .company-card {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            z-index: 2;
+        }
+
+        .company-header {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .company-logo {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 15px;
+            border: 3px solid var(--primary-red);
+            background: white;
+            padding: 1rem;
+        }
+
+        .company-info h2 {
+            color: var(--primary-red);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .company-info p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .contact-details {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .contact-details h3 {
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .contact-item i {
+            color: var(--primary-red);
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .job-opportunity {
+            background: linear-gradient(45deg, var(--primary-red), var(--secondary-orange));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .job-opportunity h3 {
+            margin-bottom: 1rem;
+        }
+
+        .qualifications {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .qualifications h3 {
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .qualifications ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .qualifications li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .qualifications li:last-child {
+            border-bottom: none;
+        }
+
+        .qualifications li i {
+            color: var(--primary-red);
+            margin-right: 0.5rem;
+        }
+
+        .skill-alignment {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .skill-alignment h3 {
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .skill-match {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+        }
+
+        .skill-match i {
+            color: var(--primary-red);
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .company-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .company-logo {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* Mobile Menu Styles */
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-red);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1001;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus {
+            outline: 2px solid var(--primary-red);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Elmo's World</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html">Home</a></li>
+                <li class="nav-item"><a href="hobbies.html">Hobbies</a></li>
+                <li class="nav-item"><a href="discover.html">Discover</a></li>
+                <li class="nav-item"><a href="resume.html">Resume</a></li>
+                <li class="nav-item"><a href="career.html">Career</a></li>
+                <li class="nav-item"><a href="game.html">Game</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Background Shapes -->
+    <div class="background-shapes">
+        <div class="shape" style="top: 20%; left: 10%; width: 100px; height: 100px; animation-delay: 0s;"></div>
+        <div class="shape" style="top: 60%; left: 80%; width: 150px; height: 150px; animation-delay: 2s;"></div>
+        <div class="shape" style="top: 80%; left: 30%; width: 80px; height: 80px; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main" class="main-content">
+        <div class="container">
+            <h1 class="page-title">Career Interests</h1>
+            <p class="page-subtitle">Companies and opportunities that align with Elmo's professional goals</p>
+
+
+            <!-- Company 1: Disney -->
+            <section class="company-card">
+                <div class="company-header">
+                    <img src="media/images/disneylogo.png" alt="Disney Logo" class="company-logo">
+                    <div class="company-info">
+                        <h2>The Walt Disney Company</h2>
+                        <p>The Walt Disney Company is a global entertainment powerhouse that creates magical experiences for families worldwide. Disney's commitment to storytelling, innovation, and creating content that inspires and educates children aligns perfectly with Elmo's mission and values.</p>
+                        <p>Disney's diverse portfolio includes theme parks, movies, television, streaming services, and educational content, providing numerous opportunities for someone with Elmo's background in children's entertainment and education.</p>
+                    </div>
+                </div>
+
+                <div class="contact-details">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <span>Website: <a href="https://www.disney.com" target="_blank">www.disney.com</a></span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email: careers@disney.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>Phone: (818) 560-1000</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Address: 500 S Buena Vista St, Burbank, CA 91521</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-linkedin"></i>
+                        <span>LinkedIn: <a href="https://linkedin.com/company/walt-disney-company" target="_blank">Walt Disney Company</a></span>
+                    </div>
+                </div>
+
+                <div class="job-opportunity">
+                    <h3>Desired Position: Educational Content Specialist</h3>
+                    <p>Elmo is interested in joining Disney's educational content division, where he can leverage his extensive experience in children's television programming to create engaging educational content for Disney's various platforms. This role would involve developing curriculum-based content, working with educational experts, and ensuring that Disney's educational offerings meet the highest standards of learning effectiveness.</p>
+                </div>
+
+                <div class="qualifications">
+                    <h3>Why Elmo is Qualified</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i>40+ years of experience in children's television programming</li>
+                        <li><i class="fas fa-check"></i>Proven track record of creating educational content that reaches millions of children</li>
+                        <li><i class="fas fa-check"></i>Expertise in early childhood development and educational psychology</li>
+                        <li><i class="fas fa-check"></i>Strong background in digital media and content adaptation</li>
+                        <li><i class="fas fa-check"></i>Experience working with diverse teams and cross-cultural communication</li>
+                        <li><i class="fas fa-check"></i>Multiple awards and recognition for educational impact</li>
+                    </ul>
+                </div>
+
+                <div class="skill-alignment">
+                    <h3>How Elmo's Skills Align with Disney's Needs</h3>
+                    <div class="skill-match">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <strong>Educational Expertise:</strong> Elmo's deep understanding of how children learn and develop aligns with Disney's commitment to creating meaningful educational content.
+                        </div>
+                    </div>
+                    <div class="skill-match">
+                        <i class="fas fa-microphone"></i>
+                        <div>
+                            <strong>Entertainment Experience:</strong> Elmo's proven ability to entertain while educating matches Disney's mission of combining fun with learning.
+                        </div>
+                    </div>
+                    <div class="skill-match">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <strong>Global Reach:</strong> Elmo's international recognition and experience with diverse audiences aligns with Disney's global presence.
+                        </div>
+                    </div>
+                    <div class="skill-match">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <strong>Team Collaboration:</strong> Elmo's experience working with large production teams and diverse stakeholders matches Disney's collaborative culture.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Company 2: PBS Kids -->
+            <section class="company-card">
+                <div class="company-header">
+                    <img src="media/images/pbskidslogo.svg" alt="PBS Kids Logo" class="company-logo">
+                    <div class="company-info">
+                        <h2>PBS Kids</h2>
+                        <p>PBS Kids is the children's programming division of the Public Broadcasting Service, dedicated to providing high-quality educational content for young learners. PBS Kids has a long history of creating innovative, research-based educational programming that helps children develop essential skills while having fun.</p>
+                        <p>With a mission to use the power of media to open worlds of possibility for all children, PBS Kids represents the perfect environment for Elmo to continue his educational mission while reaching an even broader audience of young learners.</p>
+                    </div>
+                </div>
+
+                <div class="contact-details">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <span>Website: <a href="https://www.pbskids.org" target="_blank">www.pbskids.org</a></span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email: careers@pbs.org</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>Phone: (703) 739-5000</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Address: 1225 S Clark St, Arlington, VA 22202</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-linkedin"></i>
+                        <span>LinkedIn: <a href="https://linkedin.com/company/pbs" target="_blank">PBS</a></span>
+                    </div>
+                </div>
+
+                <div class="job-opportunity">
+                    <h3>Desired Position: Educational Content Director</h3>
+                    <p>Elmo is interested in taking on a leadership role at PBS Kids, where he can oversee the development of educational content and ensure that all programming meets the highest educational standards. This position would involve working with educational researchers, content creators, and production teams to develop innovative programming that helps children learn and grow.</p>
+                </div>
+
+                <div class="qualifications">
+                    <h3>Why Elmo is Qualified</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i>Extensive experience in educational television programming</li>
+                        <li><i class="fas fa-check"></i>Deep understanding of child development and learning theories</li>
+                        <li><i class="fas fa-check"></i>Proven ability to create content that is both educational and entertaining</li>
+                        <li><i class="fas fa-check"></i>Experience working with educational researchers and child development experts</li>
+                        <li><i class="fas fa-check"></i>Strong leadership skills and ability to mentor others</li>
+                        <li><i class="fas fa-check"></i>Commitment to public service and educational mission</li>
+                    </ul>
+                </div>
+
+                <div class="skill-alignment">
+                    <h3>How Elmo's Skills Align with PBS Kids' Mission</h3>
+                    <div class="skill-match">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <strong>Educational Mission:</strong> Elmo's lifelong commitment to helping children learn aligns perfectly with PBS Kids' educational mission.
+                        </div>
+                    </div>
+                    <div class="skill-match">
+                        <i class="fas fa-search"></i>
+                        <div>
+                            <strong>Research-Based Approach:</strong> Elmo's experience working with educational researchers matches PBS Kids' evidence-based programming approach.
+                        </div>
+                    </div>
+                    <div class="skill-match">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <strong>Public Service:</strong> Elmo's dedication to serving all children, regardless of background, aligns with PBS Kids' commitment to accessibility and inclusion.
+                        </div>
+                    </div>
+                    <div class="skill-match">
+                        <i class="fas fa-lightbulb"></i>
+                        <div>
+                            <strong>Innovation:</strong> Elmo's track record of creating innovative educational content matches PBS Kids' commitment to cutting-edge educational programming.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
