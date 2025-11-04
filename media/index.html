@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Elmo's Homepage</title>
+   
+   <!-- Import Comfortaa font from Google Fonts -->
+   <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+   
+   <style>
+      body {
+         font-family: 'Comfortaa', cursive;
+         margin: 0;
+         padding: 0;
+         background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+         min-height: 100vh;
+      }
+
+      nav ul {
+         list-style: none;
+         padding: 0;
+         margin: 0;
+         display: flex;
+         justify-content: center;
+         gap: 15px;
+         background-color: rgba(255, 255, 255, 0.9);
+         backdrop-filter: blur(10px);
+         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      nav ul li a {
+         color: #333;
+         text-decoration: none;
+         padding: 20px 15px;
+         font-size: 1.2rem;
+         display: block;
+         transition: all 0.3s ease;
+      }
+
+      nav ul li a:hover {
+         background-color: #ff6b6b;
+         color: white;
+         transform: translateY(-2px);
+      }
+
+      .hero-section {
+         text-align: center;
+         padding: 60px 20px;
+         color: white;
+      }
+
+      .hero-section h1 {
+         font-size: 4rem;
+         margin-bottom: 20px;
+         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+         animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+         0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+         40% { transform: translateY(-10px); }
+         60% { transform: translateY(-5px); }
+      }
+
+      .hero-section p {
+         font-size: 1.5rem;
+         margin-bottom: 30px;
+         text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      }
+
+      .intro-video {
+         max-width: 600px;
+         margin: 0 auto 40px;
+         border-radius: 15px;
+         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+         overflow: hidden;
+      }
+
+      .intro-video video {
+         width: 100%;
+         height: auto;
+         display: block;
+      }
+
+      .content-sections {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         gap: 30px;
+         padding: 40px 20px;
+         max-width: 1200px;
+         margin: 0 auto;
+      }
+
+      .section-card {
+         background: rgba(255, 255, 255, 0.95);
+         border-radius: 20px;
+         padding: 30px;
+         text-align: center;
+         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+         transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .section-card:hover {
+         transform: translateY(-10px);
+         box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      }
+
+      .section-card h2 {
+         color: #333;
+         font-size: 2rem;
+         margin-bottom: 20px;
+      }
+
+      .section-card img {
+         max-width: 100%;
+         height: 250px;
+         object-fit: cover;
+         border-radius: 15px;
+         margin-bottom: 20px;
+         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+
+      .section-card p {
+         color: #666;
+         font-size: 1.1rem;
+         line-height: 1.6;
+      }
+
+      .professional-section {
+         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+         color: white;
+      }
+
+      .professional-section h2,
+      .professional-section p {
+         color: white;
+      }
+
+      .singing-section {
+         background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+         color: white;
+      }
+
+      .singing-section h2,
+      .singing-section p {
+         color: white;
+      }
+
+      .reading-section {
+         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+         color: white;
+      }
+
+      .reading-section h2,
+      .reading-section p {
+         color: white;
+      }
+
+      .footer {
+         text-align: center;
+         padding: 40px 20px;
+         background: rgba(0,0,0,0.8);
+         color: white;
+         margin-top: 40px;
+      }
+   </style>
+</head>
+<body>
+   <nav>
+       <ul>
+           <li><a href="index.html">Elmo's Home</a></li>
+           <li><a href="hobbies.html">Hobbies</a></li>
+           <li><a href="discover.html">Discover UMD</a></li>
+           <li><a href="resume.html">Resume</a></li>
+           <li><a href="career.html">Career</a></li>
+           <li><a href="game.html">Game</a></li>
+       </ul>
+   </nav>
+
+   <div class="hero-section">
+      <h1>Hi! I'm Elmo! 🎭</h1>
+      <p>Welcome to my wonderful world of learning and fun!</p>
+      
+      <!-- Elmo Introduction Video -->
+      <div class="intro-video">
+         <video controls poster="./elmoprofessionalpicture.jpg">
+            <source src="./videos/elmo-introduction.mp4" type="video/mp4">
+            <source src="./videos/elmo-introduction.webm" type="video/webm">
+            Your browser does not support the video tag.
+         </video>
+      </div>
+   </div>
+
+   <div class="content-sections">
+      <!-- Professional Section -->
+      <div class="section-card professional-section">
+         <h2>Professional Elmo</h2>
+         <img src="./elmoprofessionalpicture.jpg" alt="Professional Elmo headshot">
+         <p>This is my professional headshot! I take my work very seriously and love helping children learn and grow. I'm always ready to share knowledge and make learning fun!</p>
+      </div>
+
+      <!-- Singing Section -->
+      <div class="section-card singing-section">
+         <h2>Elmo Loves to Sing! 🎵</h2>
+         <img src="./elmosinging.jpg" alt="Elmo singing">
+         <p>Music is one of my greatest passions! I love to sing songs about letters, numbers, and all the wonderful things in the world. Singing makes everything more fun!</p>
+      </div>
+
+      <!-- Reading Section -->
+      <div class="section-card reading-section">
+         <h2>Reading is Amazing! 📚</h2>
+         <img src="./elmoreading.avif" alt="Elmo reading">
+         <p>Books are magical! I love reading stories and learning new things from books. Every book is an adventure waiting to be discovered!</p>
+      </div>
+   </div>
+
+   <div class="footer">
+      <p>&copy; 2024 Elmo's Wonderful World. All rights reserved.</p>
+   </div>
+</body>
+</html>
